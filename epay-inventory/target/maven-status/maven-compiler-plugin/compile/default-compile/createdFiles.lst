@@ -1,0 +1,2 @@
+com\tpvlog\epay\inventory\AppBootstrap.class
+com\tpvlog\epay\inventory\config\RedisClusterConfig.class
