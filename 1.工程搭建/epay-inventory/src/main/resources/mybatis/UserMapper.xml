@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.tpvlog.epay.inventory.mapper.UserMapper">
+    <resultMap id="rm" type="com.tpvlog.epay.inventory.entity.User">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="name" jdbcType="VARCHAR" column="name"/>
+        <result property="age" jdbcType="INTEGER" column="age"/>
+    </resultMap>
+
+    <select id="queryUserByName" resultMap="rm">
+		SELECT
+			id,
+			name,
+			age
+		FROM
+			user
+		WHERE name = #{name}
+	</select>
+</mapper>
+
