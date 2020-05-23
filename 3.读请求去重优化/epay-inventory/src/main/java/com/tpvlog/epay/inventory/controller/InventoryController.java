@@ -31,7 +31,7 @@ public class InventoryController {
     @RequestMapping("/getInventory/{productId}")
     @ResponseBody
     public ProductInventory getInventory(@PathVariable("productId") Long productId) {
-        log.info("getInventory:{}", productId);
+        log.info("接收到商品库存查询请求:{}", productId);
         ProductInventory result = null;
         try {
 
@@ -42,34 +42,38 @@ public class InventoryController {
             // 2.hang一段时间，尝试从缓存中查询（正常情况下，上面的读请求会将数据更新到缓存）
             long startTime = System.currentTimeMillis();
             long endTime = startTime;
-            while (endTime - startTime < 120L) {
+            while (endTime - startTime < 200L) {
                 result = inventoryService.queryCachedProductInventory(productId);
                 if (result == null) {
                     // 等待20毫秒
-                    LockSupport.parkNanos(20 * 1000 * 1000L);
+                    Thread.sleep(20);
                     endTime = System.currentTimeMillis();
                 } else {
+                    log.info("在200ms内读取到了缓存：{}", result);
                     return result;
                 }
             }
 
-            // 3.缓存中查不到，直接从数据库查
+            // 3.缓存中查不到，判断数据库中是否存在
             result = inventoryService.queryProductInventory(productId);
             if (result != null) {
+                log.info("在200ms内未读取到缓存，但数据库中存在记录：{}", result);
                 // 强制刷入缓存，因为缓存中的数据可能被Redis清除掉（Redis内存满而LRU清除），而队列中的filterMap状态一直为false
                 requestAsyncProcessorService.process(new ProductInventoryQueryRequest(result,
                         inventoryService, true));
+                return result;
             }
         } catch (Exception ex) {
             log.error("getInventory failed", ex);
         }
-        return result;
+        return new ProductInventory(-1L, -1L);
     }
 
     @RequestMapping("/updateInventory")
     @ResponseBody
     public Response updateInventory(ProductInventory productInventory) {
-        log.info("updateInventory:{}", productInventory);
+        log.info("接收到商品库存更新请求: {}", productInventory);
+
         Response response = null;
         try {
             // 封装更新请求

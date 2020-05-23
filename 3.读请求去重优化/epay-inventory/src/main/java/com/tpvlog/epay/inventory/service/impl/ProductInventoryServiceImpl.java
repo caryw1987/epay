@@ -52,7 +52,7 @@ public class ProductInventoryServiceImpl implements ProductInventoryService {
     public Boolean setCachedProductInventory(ProductInventory productInventory) {
         try {
             String key = "product:inventory:" + productInventory.getProductId();
-            redisDao.set(key, productInventory.getInventoryCnt());
+            redisDao.set(key, String.valueOf(productInventory.getInventoryCnt()));
             return true;
         } catch (Exception ex) {
             log.error("设置商品库存缓存失败:{}", productInventory, ex);

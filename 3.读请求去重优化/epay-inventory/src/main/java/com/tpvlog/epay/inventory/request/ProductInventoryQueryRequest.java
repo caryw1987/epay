@@ -46,7 +46,7 @@ public class ProductInventoryQueryRequest implements Request {
 
     @Override
     public Long getProductId() {
-        return this.getProductId();
+        return this.productInventory.getProductId();
     }
 
     @Override
