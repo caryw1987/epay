@@ -1,4 +1,4 @@
-package com.tpvlog.epay.inventory.dao;
+package com.tpvlog.epay.cache.dao;
 
 import java.util.List;
 import java.util.Set;

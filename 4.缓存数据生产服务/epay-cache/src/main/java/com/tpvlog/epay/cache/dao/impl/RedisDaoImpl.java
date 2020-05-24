@@ -1,7 +1,7 @@
-package com.tpvlog.epay.inventory.dao.impl;
+package com.tpvlog.epay.cache.dao.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.tpvlog.epay.inventory.dao.RedisDao;
+import com.tpvlog.epay.cache.dao.RedisDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;

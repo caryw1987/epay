@@ -1,4 +1,4 @@
-package com.tpvlog.epay.inventory.config;
+package com.tpvlog.epay.cache.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
