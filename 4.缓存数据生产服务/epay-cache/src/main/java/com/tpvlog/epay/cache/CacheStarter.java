@@ -1,17 +1,17 @@
-package com.tpvlog.epay.inventory;
+package com.tpvlog.epay.cache;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
-@SpringBootApplication(scanBasePackages = "com.tpvlog.epay.inventory")
-@MapperScan("com.tpvlog.epay.inventory.mapper")
+@SpringBootApplication(scanBasePackages = "com.tpvlog.epay.cache")
+@MapperScan("com.tpvlog.epay.cache.mapper")
 @ServletComponentScan
-public class InventoryStarter {
+public class CacheStarter {
 
     public static void main(String[] args) {
-        SpringApplication.run(InventoryStarter.class, args);
+        SpringApplication.run(CacheStarter.class, args);
     }
  
 }
