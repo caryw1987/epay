@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.tpvlog.epay.inventory.mapper.ProductInventoryMapper">
+    <resultMap id="rm" type="com.tpvlog.epay.inventory.entity.ProductInventory">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="productId" jdbcType="BIGINT" column="product_id"/>
+        <result property="inventoryCnt" jdbcType="BIGINT" column="inventory_cnt"/>
+    </resultMap>
+
+    <sql id="baseSQL">
+        id,
+        product_id,
+        inventory_cnt
+	</sql>
+
+    <select id="queryProductInventory" resultMap="rm">
+        SELECT
+        <include refid="baseSQL"/>
+        from product_inventory where product_id = #{productId}
+    </select>
+
+    <update id="updateProductInventory" parameterType="com.tpvlog.epay.inventory.entity.ProductInventory">
+		update product_inventory
+		set inventory_cnt=#{inventoryCnt}
+		where product_id=#{productId}
+  	</update>
+
+</mapper>
+
