@@ -25,4 +25,14 @@ public interface CacheService {
      * @return
      */
     ProductInfo queryLocalCache(Long id);
+
+    /**
+     * 将商品信息保存到redis
+     */
+    void updateReidsCache(ProductInfo productInfo);
+
+    /**
+     * 从Redis缓存获取商品信息
+     */
+    ProductInfo queryReidsCache(Long id);
 }

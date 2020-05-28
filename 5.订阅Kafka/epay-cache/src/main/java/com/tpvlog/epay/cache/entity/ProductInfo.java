@@ -1,5 +1,8 @@
 package com.tpvlog.epay.cache.entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +15,12 @@ public class ProductInfo implements Serializable {
     private Long id;
     private String name;
     private Long price;
+    private String pictureList;
+    private String specification;
+    private String service;
+    private String color;
+    private String size;
+    private Long shopId;
 
     public ProductInfo() {
 
@@ -49,11 +58,7 @@ public class ProductInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductInfo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
     }
 }
 
