@@ -17,6 +17,6 @@
     </eh:cache-template>
 
     <!--实际的缓存策略，继承了default缓存模板-->
-    <eh:cache alias="product" uses-template="default">
+    <eh:cache alias="local" uses-template="default">
     </eh:cache>
 </eh:config>
