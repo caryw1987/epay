@@ -1,5 +1,6 @@
 H:\program\epay\4.缓存数据生产服务\epay-cache\src\main\java\com\tpvlog\epay\cache\service\impl\CacheServiceImpl.java
 H:\program\epay\4.缓存数据生产服务\epay-cache\src\main\java\com\tpvlog\epay\cache\dao\impl\RedisDaoImpl.java
+H:\program\epay\4.缓存数据生产服务\epay-cache\src\main\java\com\tpvlog\epay\cache\entity\ShopInfo.java
 H:\program\epay\4.缓存数据生产服务\epay-cache\src\main\java\com\tpvlog\epay\cache\config\RedisClusterConfig.java
 H:\program\epay\4.缓存数据生产服务\epay-cache\src\main\java\com\tpvlog\epay\cache\entity\ProductInfo.java
 H:\program\epay\4.缓存数据生产服务\epay-cache\src\main\java\com\tpvlog\epay\cache\CacheStarter.java

@@ -9,9 +9,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @MapperScan("com.tpvlog.epay.cache.mapper")
 @ServletComponentScan
 public class CacheStarter {
-
     public static void main(String[] args) {
         SpringApplication.run(CacheStarter.class, args);
     }
- 
 }

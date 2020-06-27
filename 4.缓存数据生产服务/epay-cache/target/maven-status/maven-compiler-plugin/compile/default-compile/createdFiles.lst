@@ -1,4 +1,5 @@
 com\tpvlog\epay\cache\dao\impl\RedisDaoImpl.class
+com\tpvlog\epay\cache\entity\ShopInfo.class
 com\tpvlog\epay\cache\config\EhcacheConfig.class
 com\tpvlog\epay\cache\dao\RedisDao.class
 com\tpvlog\epay\cache\config\RedisClusterConfig.class
