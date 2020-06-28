@@ -29,7 +29,7 @@ public class CacheIntegrationConsumer {
 
         // 调用商品基本信息服务的接口，获取最新数据
         // 生产环境一般RPC调用，这里直接注释模拟
-        String productInfoJSON = "{\"id\": 1,\"productId\": 1000, \"name\": \"iphone7手机\", \"price\": 5599, \"pictureList\":\"a.jpg,b.jpg\", \"specification\": \"iphone7的规格\", \"service\": \"iphone7的售后服务\", \"color\": \"红色,白色,黑色\", \"size\": \"5.5\", \"shopId\": 15, \"modifiedTime\": \"2017-01-01 12:00:00\"}";
+        String productInfoJSON = "{\"id\": 1,\"productId\": 1000, \"name\": \"iphone7手机\", \"price\": 5599, \"pictureList\":\"a.jpg,b.jpg\", \"specification\": \"iphone7的规格\", \"service\": \"iphone7的售后服务\", \"color\": \"红色,白色,黑色\", \"size\": \"5.5\", \"shopId\": 15, \"modifiedTime\": \"2020-01-01 12:00:00\"}";
         ProductInfo productInfo = JSONObject.parseObject(productInfoJSON, ProductInfo.class);
 
         // TODO:重建本地缓存和Redis缓存
@@ -40,14 +40,13 @@ public class CacheIntegrationConsumer {
     public void consumeShop(ConsumerRecord<Integer, String> record) {
         LOG.info("接收到店铺服务通知: {}", record);
         JSONObject jsonObject = JSONObject.parseObject(record.value());
-        ;
 
         // 提取出店铺id
         Long shopId = jsonObject.getLong("shopId");
 
         // 调用店铺服务的接口
         // 生产环境一般RPC调用，这里直接注释模拟
-        String shopInfoJSON = "{\"id\": 1,\"shopId\": 15, \"name\": \"小王的手机店\", \"level\": 5, \"goodCommentRate\":0.99}";
+        String shopInfoJSON = "{\"id\": 1,\"shopId\": 15, \"name\": \"小王的手机店\", \"level\": 5, \"goodCommentRate\":0.99, \"modifiedTime\": \"2020-01-01 13:00:00\"}";
         ShopInfo shopInfo = JSONObject.parseObject(shopInfoJSON, ShopInfo.class);
 
         // TODO:重建本地缓存和Redis缓存

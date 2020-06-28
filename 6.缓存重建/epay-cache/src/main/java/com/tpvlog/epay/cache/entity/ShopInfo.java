@@ -12,9 +12,14 @@ public class ShopInfo {
     private String name;
     private Integer level;
     private Double goodCommentRate;
+    private String modifiedTime;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getShopId() {
@@ -23,10 +28,6 @@ public class ShopInfo {
 
     public void setShopId(Long shopId) {
         this.shopId = shopId;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -53,6 +54,14 @@ public class ShopInfo {
         this.goodCommentRate = goodCommentRate;
     }
 
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
     @Override
     public String toString() {
         return "ShopInfo{" +
@@ -61,6 +70,7 @@ public class ShopInfo {
                 ", name='" + name + '\'' +
                 ", level=" + level +
                 ", goodCommentRate=" + goodCommentRate +
+                ", modifiedTime='" + modifiedTime + '\'' +
                 '}';
     }
 }

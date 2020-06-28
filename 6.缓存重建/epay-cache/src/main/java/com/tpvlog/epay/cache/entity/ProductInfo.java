@@ -19,7 +19,6 @@ public class ProductInfo {
 	private Long shopId;
 	private String modifiedTime;
 
-
 	public Long getId() {
 		return id;
 	}
