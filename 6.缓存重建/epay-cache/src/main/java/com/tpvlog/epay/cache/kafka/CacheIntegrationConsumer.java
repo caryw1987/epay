@@ -32,7 +32,7 @@ public class CacheIntegrationConsumer {
         String productInfoJSON = "{\"id\": 1,\"productId\": 1000, \"name\": \"iphone7手机\", \"price\": 5599, \"pictureList\":\"a.jpg,b.jpg\", \"specification\": \"iphone7的规格\", \"service\": \"iphone7的售后服务\", \"color\": \"红色,白色,黑色\", \"size\": \"5.5\", \"shopId\": 15, \"modifiedTime\": \"2020-01-01 12:00:00\"}";
         ProductInfo productInfo = JSONObject.parseObject(productInfoJSON, ProductInfo.class);
 
-        // TODO:重建本地缓存和Redis缓存
+        // 重建本地缓存和Redis缓存
         cacheService.rebulidCache(productInfo);
     }
 
@@ -49,7 +49,7 @@ public class CacheIntegrationConsumer {
         String shopInfoJSON = "{\"id\": 1,\"shopId\": 15, \"name\": \"小王的手机店\", \"level\": 5, \"goodCommentRate\":0.99, \"modifiedTime\": \"2020-01-01 13:00:00\"}";
         ShopInfo shopInfo = JSONObject.parseObject(shopInfoJSON, ShopInfo.class);
 
-        // TODO:重建本地缓存和Redis缓存
+        // 重建本地缓存和Redis缓存
         cacheService.rebulidCache(shopInfo);
     }
 }

@@ -42,41 +42,15 @@ public class ZooKeeperLock implements InitializingBean {
     private CuratorFramework curatorFramework;
 
     /**
-     * 获取分布式锁
+     * 获取锁
      *
-     * @param type 锁类型
+     * @param type
      * @param key
-     * @param time 超时时间
+     * @return
      */
-    public boolean acquire(LockType type, String key, long time, TimeUnit unit) {
+    public InterProcessMutex getMutex(LockType type, String key) {
         String keyPath = "/" + ROOT_PATH_LOCK + "/" + type.getKey() + "/" + key;
-        InterProcessMutex lock = new InterProcessMutex(curatorFramework, keyPath);
-        try {
-            boolean locked = lock.acquire(time, unit);
-            if (locked) {
-                lockMap.put(keyPath, lock);
-            }
-            return locked;
-        } catch (Exception e) {
-            LOG.error("获取分布式锁失败，type = {}, key = {}", type, key, e);
-            return false;
-        }
-    }
-
-    /**
-     * 释放分布式锁
-     */
-    public boolean release(LockType type, String key) {
-        String keyPath = "/" + ROOT_PATH_LOCK + "/" + type.getKey() + "/" + key;
-        InterProcessMutex lock = lockMap.get(keyPath);
-        try {
-            lock.release();
-            lockMap.remove(keyPath);
-            return true;
-        } catch (Exception e) {
-            LOG.error("释放分布式锁失败，type = {}, key = {}", type, key, e);
-            return false;
-        }
+        return new InterProcessMutex(curatorFramework, keyPath);
     }
 
     /**
