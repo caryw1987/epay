@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.LockSupport;
 
 @Service("cacheService")
 public class CacheServiceImpl implements CacheService {
@@ -31,28 +32,25 @@ public class CacheServiceImpl implements CacheService {
     @Autowired
     private ZooKeeperLock zooKeeperLock;
 
-    public static final String CACHE_NAME = "local";
-    public static final String PRODUCT_CACHE_PREFIX = "product_info_";
-    public static final String SHOP_CACHE_PREFIX = "shop_info_";
 
-    @CachePut(value = CACHE_NAME, key = PRODUCT_CACHE_PREFIX + " +#productInfo.getProductId()")
+    @CachePut(value = "local", key = "'product_info_' + #productInfo.getProductId()")
     @Override
     public void saveProductInfo2LocalCache(ProductInfo productInfo) {
     }
 
-    @Cacheable(value = CACHE_NAME, key = PRODUCT_CACHE_PREFIX + " + #productId")
+    @Cacheable(value = "local", key = "'product_info_'+ #productId")
     @Override
     public ProductInfo getProductInfoFromLocalCache(Long productId) {
         // 没有缓存则返回null
         return null;
     }
 
-    @CachePut(value = CACHE_NAME, key = SHOP_CACHE_PREFIX + "+#shopInfo.getShopId()")
+    @CachePut(value = "local", key = "'shop_info_'+#shopInfo.getShopId()")
     @Override
     public void saveShopInfo2LocalCache(ShopInfo shopInfo) {
     }
 
-    @Cacheable(value = CACHE_NAME, key = SHOP_CACHE_PREFIX + "+#shopId")
+    @Cacheable(value = "local", key = "'shop_info_'+#shopId")
     @Override
     public ShopInfo getShopInfoFromLocalCache(Long shopId) {
         return null;
@@ -60,19 +58,19 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public void saveProductInfo2ReidsCache(ProductInfo productInfo) {
-        String key = PRODUCT_CACHE_PREFIX + productInfo.getProductId();
+        String key = "product_info_" + productInfo.getProductId();
         redisDao.set(key, JSON.toJSONString(productInfo));
     }
 
     @Override
     public void saveShopInfo2ReidsCache(ShopInfo shopInfo) {
-        String key = SHOP_CACHE_PREFIX + shopInfo.getShopId();
+        String key = "shop_info_" + shopInfo.getShopId();
         redisDao.set(key, JSON.toJSONString(shopInfo));
     }
 
     @Override
     public ProductInfo getProductInfoFromReidsCache(Long productId) {
-        String key = PRODUCT_CACHE_PREFIX + productId;
+        String key = "product_info_" + productId;
         String data = redisDao.get(key);
         if (StringUtils.isBlank(data)) {
             return null;
@@ -82,7 +80,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public ShopInfo getShopInfoFromReidsCache(Long shopId) {
-        String key = PRODUCT_CACHE_PREFIX + shopId;
+        String key = "shop_info_" + shopId;
         String data = redisDao.get(key);
         if (StringUtils.isBlank(data)) {
             return null;
@@ -99,6 +97,7 @@ public class CacheServiceImpl implements CacheService {
             // 超时10s
             isLocked = lock.acquire(10000, TimeUnit.MILLISECONDS);
             if (isLocked) {
+                LOG.info("{} 获取分布式锁成功", Thread.currentThread().getName());
                 //获取成功
                 doRebulidCache(productInfo);
             } else {

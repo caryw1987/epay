@@ -93,6 +93,7 @@ public class CacheController {
             } catch (Exception ex) {
                 LOG.error("发送重建缓存消息失败", ex);
             }
+
         }
 
         return shopInfo;
