@@ -39,10 +39,10 @@ public class CacheIntegrationConsumer {
     @KafkaListener(topics = {"shop-topic"}, groupId = "shop-group")
     public void consumeShop(ConsumerRecord<Integer, String> record) {
         LOG.info("接收到店铺服务通知: {}", record);
-        JSONObject jsonObject = JSONObject.parseObject(record.value());
+        String data = record.value();
 
         // 提取出店铺id
-        Long shopId = jsonObject.getLong("shopId");
+        Long shopId =  Long.valueOf(data);
 
         // 调用店铺服务的接口
         // 生产环境一般RPC调用，这里直接注释模拟
