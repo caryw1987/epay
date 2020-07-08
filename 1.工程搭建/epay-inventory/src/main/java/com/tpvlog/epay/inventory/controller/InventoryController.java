@@ -11,8 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.concurrent.locks.LockSupport;
@@ -28,7 +30,7 @@ public class InventoryController {
     @Autowired
     private RequestAsyncProcessorService requestAsyncProcessorService;
 
-    @RequestMapping("/getInventory/{productId}")
+    @GetMapping("/getInventory/{productId}")
     @ResponseBody
     public ProductInventory getInventory(@PathVariable("productId") Long productId) {
         ProductInventory result = null;
@@ -60,9 +62,9 @@ public class InventoryController {
         return result;
     }
 
-    @RequestMapping("/updateInventory")
+    @PostMapping("/updateInventory")
     @ResponseBody
-    public Response updateInventory(ProductInventory productInventory) {
+    public Response updateInventory(@RequestBody ProductInventory productInventory) {
         Response response = null;
         try {
             // 封装更新请求

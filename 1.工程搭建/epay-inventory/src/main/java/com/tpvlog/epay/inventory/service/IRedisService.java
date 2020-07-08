@@ -23,6 +23,12 @@ public interface IRedisService {
 
     void delBatch(Set<String> keys);
 
+    /**
+     * 线上请不要使用这种方法，会造成全局扫描，数据量大时会引起卡顿
+     *
+     * @param keyPrefix key的前缀
+     */
+    @Deprecated
     void delBatch(String keyPrefix);
 
     <T> void setList(String key, List<T> list);

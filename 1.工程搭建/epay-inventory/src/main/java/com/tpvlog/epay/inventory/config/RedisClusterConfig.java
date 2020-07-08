@@ -76,19 +76,18 @@ public class RedisClusterConfig {
 
         String[] sub = nodes.split(",");
         List<RedisNode> nodeList = new ArrayList<>(sub.length);
-        String[] tmp;
         for (String s : sub) {
-            tmp = s.split(":");
-            nodeList.add(new RedisNode(tmp[0], Integer.valueOf(tmp[1])));
+            int index = s.lastIndexOf(":");
+            nodeList.add(new RedisNode(s.substring(0, index), Integer.parseInt(s.substring(index + 1))));
         }
 
         config.setClusterNodes(nodeList);
         return config;
     }
 
+    @SuppressWarnings("unchecked")
     @Bean
     public RedisTemplate redisTemplate(RedisConnectionFactory connectionFactory) {
-
         RedisTemplate template = new RedisTemplate<>();
 
         template.setConnectionFactory(connectionFactory);
@@ -98,7 +97,6 @@ public class RedisClusterConfig {
         template.afterPropertiesSet();
 
         return template;
-
     }
 
 

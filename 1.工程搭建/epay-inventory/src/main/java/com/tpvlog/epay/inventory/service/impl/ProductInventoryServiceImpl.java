@@ -1,8 +1,8 @@
 package com.tpvlog.epay.inventory.service.impl;
 
-import com.tpvlog.epay.inventory.dao.RedisDao;
 import com.tpvlog.epay.inventory.entity.ProductInventory;
 import com.tpvlog.epay.inventory.mapper.ProductInventoryMapper;
+import com.tpvlog.epay.inventory.service.IRedisService;
 import com.tpvlog.epay.inventory.service.ProductInventoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,8 +15,11 @@ public class ProductInventoryServiceImpl implements ProductInventoryService {
 
     private static final Logger log = LoggerFactory.getLogger(ProductInventoryServiceImpl.class);
 
+//    @Autowired
+//    private RedisDao redisDao;
+
     @Autowired
-    private RedisDao redisDao;
+    private IRedisService redisService;
 
     @Autowired
     private ProductInventoryMapper productInventoryMapper;
@@ -34,7 +37,7 @@ public class ProductInventoryServiceImpl implements ProductInventoryService {
     @Override
     public ProductInventory queryCachedProductInventory(Long productId) {
         String key = "product:inventory:" + productId;
-        String result = redisDao.get(key);
+        String result = redisService.get(key);
         if (StringUtils.isBlank(result)) {
             return null;
         }
@@ -52,7 +55,7 @@ public class ProductInventoryServiceImpl implements ProductInventoryService {
     public Boolean setCachedProductInventory(ProductInventory productInventory) {
         try {
             String key = "product:inventory:" + productInventory.getProductId();
-            redisDao.set(key, productInventory.getInventoryCnt());
+            redisService.set(key, productInventory.getInventoryCnt());
             return true;
         } catch (Exception ex) {
             log.error("设置商品库存缓存失败:{}", productInventory, ex);
@@ -64,7 +67,7 @@ public class ProductInventoryServiceImpl implements ProductInventoryService {
     public Boolean removeCachedProductInventory(ProductInventory productInventory) {
         try {
             String key = "product:inventory:" + productInventory.getProductId();
-            redisDao.del(key);
+            redisService.del(key);
             return true;
         } catch (Exception ex) {
             log.error("删除商品库存缓存失败:{}", productInventory, ex);

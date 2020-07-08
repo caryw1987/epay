@@ -2,10 +2,13 @@ package com.tpvlog.epay.inventory.mapper;
 
 import com.tpvlog.epay.inventory.entity.ProductInventory;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  * 商品库存Mapper
+ * 在主类里面已经填写了MapperScan之后，这个注解{@link Repository} 是否添加已经无关紧要
  */
+@Repository
 public interface ProductInventoryMapper {
 
     /**

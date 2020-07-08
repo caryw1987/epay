@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 暂时过期掉这个类，请使用{@link com.tpvlog.epay.inventory.service.IRedisService}
+ *
+ */
+@Deprecated
 public interface RedisDao {
     <T> void set(String key, T value);
 
